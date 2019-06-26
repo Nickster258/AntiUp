@@ -1,0 +1,5 @@
+name: AntiUp
+version: 1.0
+depend: [PlotSquared, Vault]
+main: org.stonecipher.AntiUp
+api-version: 1.13
