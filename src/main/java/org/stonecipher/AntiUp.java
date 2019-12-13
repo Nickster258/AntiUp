@@ -30,19 +30,15 @@ public class AntiUp extends JavaPlugin implements Listener {
 
             // Return if not in a plot
             if (plot == null) return;
-            //getLogger().info("User is in plot");
 
             // Return if user is owner
             if (plot.getOwners().contains(p.getUniqueId())) return;
-            //getLogger().info("User is not plot owner");
 
             // Return if user is authorized on the plot
             if (plot.getTrusted().contains(p.getUniqueId())) return;
-            //getLogger().info("User is not trusted");
 
             // Return if user has permissions to edit
             if (perms.playerHas(p, "plots.worldedit.bypass") || perms.playerHas(p, "plots.worldedit.*") || perms.playerHas(p, "plots.*")) return;
-            //getLogger().info("User does not have exception permissions");
 
             // Cancel command.
             e.setCancelled(true);
@@ -51,7 +47,10 @@ public class AntiUp extends JavaPlugin implements Listener {
 
     private boolean setupPermissions() {
         RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
-        perms = rsp.getProvider();
-        return perms != null;
+        if (rsp != null) {
+            perms = rsp.getProvider();
+            return true;
+        }
+        return false;
     }
 }
